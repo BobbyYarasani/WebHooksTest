@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: home-pricing-orchestration
+  cloud:
+    config:
+       uri: ${CONFIG_SERVER_URL:https://api-jva-springbootconfig-dev.escloud.co.uk}
+       failFast: true
+  profiles:
+    active:
+    - ${ENV:local}
+  main:
+    banner-mode: 'off'
+  http:
+    multipart:
+       max-file-size: 1Mb
+       max-request-size: 10Mb
+  boot:
+    admin:
+      client:
+        enabled: false
+
+server:
+  port: ${APP_PORT:9280}
+  context-path: /home-pricing-orchestration-api
+  tomcat:
+    basedir: /var/log/nginx
+    accesslog:
+      enabled: true
+      buffered: false
+      directory: healthd
+      prefix: application.log
+      suffix: null
+      file-date-format: .yyyy-MM-dd-HH
+      pattern: '%{sec}t.%{msec_frac}t"%U"%s"%T"%T"%{x-forwarded-for}i'
+
+management:
+  port: ${ADMIN_PORT:9281}
+  security:
+    enabled: false
+
+camel:
+  rest:
+    api-context-path: /home-pricing-orchestration-api
+    component: servlet
+    binding-mode: json
+    skipBindingOnErrorCode: false
+  springboot:
+    name: home-pricing-orchestration
+
+logging:
+  level:
+    root: info
+    com.esure.api: debug
+
