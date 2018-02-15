@@ -17,7 +17,7 @@ spring:
   boot:
     admin:
       client:
-        enabled: false
+        enabled: false 
 
 server:
   port: ${APP_PORT:9280}
